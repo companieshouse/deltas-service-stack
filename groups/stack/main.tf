@@ -142,8 +142,8 @@ module "ecs-services" {
 
   name_prefix               = local.name_prefix
   environment               = var.environment
-  test-data-lb-arn          = module.ecs-stack.insolvency_data_api-lb-listener-arn
-  test-data-lb-listener-arn = module.ecs-stack.insolvency_data_api-lb-listener-arn
+  data-sync-lb-arn          = module.ecs-stack.data-sync-lb-listener-arn
+  data-sync-lb-listener-arn = module.ecs-stack.data-sync-lb-listener-arn
   vpc_id                    = local.vpc_id
   subnet_ids                = local.application_ids
   web_access_cidrs          = local.app_access_cidrs

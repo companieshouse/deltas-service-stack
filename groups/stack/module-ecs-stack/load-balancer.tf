@@ -1,12 +1,12 @@
-resource "aws_lb" "insolvency_data_api-lb" {
+resource "aws_lb" "data-sync-lb" {
   name            = "${var.stack_name}-${var.environment}-lb"
   security_groups = [aws_security_group.internal-service-sg.id]
   subnets         = flatten([split(",", var.subnet_ids)])
   internal        = var.delta_sync_lb_internal
 }
 
-resource "aws_lb_listener" "insolvency_data_api-lb-listener" {
-  load_balancer_arn = aws_lb.insolvency_data_api-lb.arn
+resource "aws_lb_listener" "data-sync-lb-listener" {
+  load_balancer_arn = aws_lb.data-sync-lb.arn
   port              = "443"
   protocol          = "HTTPS"
   ssl_policy        = "ELBSecurityPolicy-2016-08"
@@ -27,8 +27,8 @@ resource "aws_route53_record" "insolvency-data-api-r53-record" {
   name    = "insolvency_data_api${var.external_top_level_domain}"
   type    = "A"
   alias {
-    name                   = aws_lb.insolvency_data_api-lb.dns_name
-    zone_id                = aws_lb.insolvency_data_api-lb.zone_id
+    name                   = aws_lb.data-sync-lb.dns_name
+    zone_id                = aws_lb.data-sync-lb.zone_id
     evaluate_target_health = false
   }
 }
