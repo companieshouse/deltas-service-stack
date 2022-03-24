@@ -9,7 +9,7 @@ resource "aws_ecs_service" "insolvency-data-api-ecs-service" {
   cluster         = var.ecs_cluster_id
   task_definition = aws_ecs_task_definition.insolvency-data-api-task-definition.arn
   desired_count   = 1
-  depends_on      = [var.insolvency-data-api-lb-arn]
+  depends_on      = [var.data-sync-lb-arn]
   load_balancer {
     target_group_arn = aws_lb_target_group.insolvency-data-api-target_group.arn
     container_port   = var.tdg_application_port
@@ -76,7 +76,7 @@ resource "aws_lb_target_group" "insolvency-data-api-target_group" {
 }
 
 resource "aws_lb_listener_rule" "insolvency-data-api" {
-  listener_arn = var.insolvency-data-api-lb-listener-arn
+  listener_arn = var.data-sync-lb-listener-arn
   priority     = 1
   action {
     type             = "forward"
