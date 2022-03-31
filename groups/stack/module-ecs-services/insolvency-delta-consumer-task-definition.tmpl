@@ -1,0 +1,29 @@
+[
+    {
+        "environment": [
+            { "name": "JAVA_HOME", "value": "${insolvency_delta_consumer_java_home}" },
+            { "name": "PATH", "value": "${insolvency_delta_consumer_path}" },
+            { "name": "DATA_SYNC_KAFKA_BROKER_URL", "value": "${insolvency_delta_consumer_kafka_broker_address}" },
+            { "name": "INSOLVENCY_DATA_API_URL", "value": "${insolvency_delta_consumer_data_api_url}" },
+            { "name": "INSOLVENCY_DATA_API_KEY", "value": "${insolvency_delta_consumer_data_api_key}" }
+            ],
+        "name": "insolvency-delta-consumer",
+        "image": "${docker_registry}/insolvency-delta-consumer:${insolvency_delta_consumer_release_version}",
+        "cpu": 1,
+        "memory": 512,
+        "mountPoints": [],
+        "portMappings": [],
+        "logConfiguration": {
+            "logDriver": "awslogs",
+            "options": {
+                "awslogs-create-group": "true",
+                "awslogs-region": "${aws_region}",
+                "awslogs-group": "/ecs/${name_prefix}/insolvency-delta-consumer",
+                "awslogs-stream-prefix": "ecs"
+            }
+        },
+        "secrets": [],
+        "volumesFrom": [],
+        "essential": true
+    }
+]
